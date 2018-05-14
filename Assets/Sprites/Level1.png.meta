@@ -1,11 +1,12 @@
 fileFormatVersion: 2
 guid: e9db22ffd4cf295449edba81b7730851
-timeCreated: 1526252111
+timeCreated: 1526339647
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: Level1_0
     21300002: Level1_1
+    21300004: Level1_2
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -131,10 +132,10 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 14
-        height: 9
+        width: 12
+        height: 11
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

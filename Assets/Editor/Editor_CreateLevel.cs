@@ -38,11 +38,21 @@ public class Editor_CreateLevel : ScriptableWizard {
 
 
     void GenerateLevel(GameObject parent) {
-        Color32[] AllPixels = Level.texture.GetPixels32();
+        Color32[] AllPixels; // = Level.texture.GetPixels32();
+        
         int Levelx = (int)Level.rect.x;
         int Levely = (int)Level.rect.y;
         int LevelWidth = (int)Level.rect.width;
         int LevelHeight = (int)Level.rect.height;
+
+        Color[] myPixels = Level.texture.GetPixels(Levelx, Levely, LevelWidth, LevelHeight);
+        AllPixels = new Color32[myPixels.Length];
+        for (int i = 0; i < myPixels.Length; i++) {
+            AllPixels[i].r = (byte)(myPixels[i].r * 255);
+            AllPixels[i].g = (byte)(myPixels[i].g * 255);
+            AllPixels[i].b = (byte)(myPixels[i].b * 255);
+            AllPixels[i].a = (byte)(myPixels[i].a * 255);
+        }
 
         for (int x = Levelx; x < LevelWidth; x++)
         {
