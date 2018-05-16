@@ -17,5 +17,14 @@ public class SO_Color2Prefab : ScriptableObject {
             color2prefab = noDupes;
         }
     }
+
+    public List<Color2Prefab> GetAllStatic() {
+        List<Color2Prefab> AllStatic = new List<Color2Prefab>();
+        if (color2prefab != null && color2prefab.Count > 1)
+        {
+            AllStatic = color2prefab.FindAll(go => go.excludeFromMerge == false).ToList();
+        }
+        return AllStatic;
+    }
         
 }

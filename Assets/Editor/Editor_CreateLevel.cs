@@ -69,10 +69,11 @@ public class Editor_CreateLevel : ScriptableWizard {
         if (c.Equals(Empty)) return;
 
         SO_Color2Prefab mySO = LevelPalette;
-
+        string sufix = "(Clone)";
         foreach (Color2Prefab ctp in mySO.color2prefab) {
             if (ctp.color.Equals(c)) {
                 GameObject go = (GameObject)Instantiate(ctp.prefab, new Vector3(x, y, 0), Quaternion.identity);
+                go.name = go.name.Substring(0,go.name.Length - sufix.Length);
                 go.transform.SetParent(parent);
                 return;
             }

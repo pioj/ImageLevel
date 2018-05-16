@@ -16,19 +16,24 @@ MonoBehaviour:
       serializedVersion: 2
       rgba: 4278190080
     prefab: {fileID: 1162085542796448, guid: 3c291916d7882194e9f63cba362c0f22, type: 2}
+    excludeFromMerge: 0
   - color:
       serializedVersion: 2
       rgba: 4294967295
     prefab: {fileID: 1162085542796448, guid: 3c291916d7882194e9f63cba362c0f22, type: 2}
+    excludeFromMerge: 0
   - color:
       serializedVersion: 2
       rgba: 4278255360
     prefab: {fileID: 1161239219265264, guid: 264357a0b22e6504289be0e012ce30d0, type: 2}
+    excludeFromMerge: 1
   - color:
       serializedVersion: 2
       rgba: 4294901760
     prefab: {fileID: 1588626479570810, guid: 1ac88f104f422694eb409e459069af61, type: 2}
+    excludeFromMerge: 1
   - color:
       serializedVersion: 2
       rgba: 4278190335
     prefab: {fileID: 1780090278230468, guid: 1764d5428cc6f6743a83f4018155d785, type: 2}
+    excludeFromMerge: 1
