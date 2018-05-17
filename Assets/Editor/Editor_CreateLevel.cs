@@ -9,6 +9,7 @@ public class Editor_CreateLevel : ScriptableWizard {
     public Sprite Level;
     public SO_Color2Prefab LevelPalette;
     public Color32 Empty = new Color32(255,255,255,255); //white by default
+    private GameObject staticsParent;
 
     [MenuItem("Tools/ImageLevel/Step 2. Create Level GameObject From Sprite...")]
     static void CreateWizard()
@@ -24,6 +25,9 @@ public class Editor_CreateLevel : ScriptableWizard {
             if (LevelName == null || LevelName == "") LevelName = "NewLevel";
             
             GameObject go = new GameObject(LevelName);
+            staticsParent = new GameObject("Statics");
+            staticsParent.transform.SetParent(go.transform);
+
             GenerateLevel(go);
         }
     }
@@ -62,6 +66,7 @@ public class Editor_CreateLevel : ScriptableWizard {
                 SpawnTileAt(parent.transform, AllPixels[(y * LevelWidth) + x], x, y);
             }
         }
+
     }
 
 
@@ -74,10 +79,32 @@ public class Editor_CreateLevel : ScriptableWizard {
             if (ctp.color.Equals(c)) {
                 GameObject go = (GameObject)Instantiate(ctp.prefab, new Vector3(x, y, 0), Quaternion.identity);
                 go.name = go.name.Substring(0,go.name.Length - sufix.Length);
-                go.transform.SetParent(parent);
+                
+                //to group or not to group
+                if (ctp.excludeFromMerge == false)
+                {
+                    go.transform.SetParent(staticsParent.transform);
+                    SetStaticsCollider(go.transform);
+                }
+                else
+                {
+                    go.transform.SetParent(parent);
+                }
                 return;
             }
         }
         Debug.LogError("no more items in list: " + c.ToString());
     }
+
+
+    void SetStaticsCollider(Transform myTile) {
+        Collider2D myCol = myTile.GetComponent<Collider2D>();
+        if (myCol == null) {
+            myTile.gameObject.AddComponent<BoxCollider2D>();
+            SetStaticsCollider(myTile);
+        }
+        //if (myCol.GetType() == typeof(PolygonCollider2D)
+        myCol.usedByComposite = true;
+    }
+
 }
