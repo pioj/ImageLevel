@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4464382301886862}
   - component: {fileID: 212908713007588882}
-  - component: {fileID: 61113146189855008}
+  - component: {fileID: 61294834470239138}
   m_Layer: 0
   m_Name: block
   m_TagString: Untagged
@@ -41,7 +41,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &61113146189855008
+--- !u!61 &61294834470239138
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}

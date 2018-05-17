@@ -29,6 +29,14 @@ public class Editor_CreateLevel : ScriptableWizard {
             staticsParent.transform.SetParent(go.transform);
 
             GenerateLevel(go);
+
+            //Add the composite collider
+            staticsParent.AddComponent<Rigidbody2D>();
+            staticsParent.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+            staticsParent.AddComponent<CompositeCollider2D>();
+
+            //mark as static GO's
+            staticsParent.isStatic = true;
         }
     }
 
@@ -85,6 +93,7 @@ public class Editor_CreateLevel : ScriptableWizard {
                 {
                     go.transform.SetParent(staticsParent.transform);
                     SetStaticsCollider(go.transform);
+                    go.isStatic = true;
                 }
                 else
                 {
@@ -103,7 +112,6 @@ public class Editor_CreateLevel : ScriptableWizard {
             myTile.gameObject.AddComponent<BoxCollider2D>();
             SetStaticsCollider(myTile);
         }
-        //if (myCol.GetType() == typeof(PolygonCollider2D)
         myCol.usedByComposite = true;
     }
 
