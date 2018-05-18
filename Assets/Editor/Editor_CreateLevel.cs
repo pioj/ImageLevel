@@ -5,10 +5,17 @@ using UnityEditor;
 
 public class Editor_CreateLevel : ScriptableWizard {
 
+    [Tooltip("Will be called 'NewLevel' by default")]
     public string LevelName = "";
+    [Tooltip("The Sprite or Texture2D that will be read")]
     public Sprite Level;
+    [Tooltip("Palette of colors & prefabs will be used for this level")]
     public SO_Color2Prefab LevelPalette;
+    [Tooltip("Remove all Collilders?")]
+    public bool DecorationMode = false;
+    [Tooltip("The color that will be ignored")]
     public Color32 Empty = new Color32(255,255,255,255); //white by default
+
     private GameObject staticsParent;
 
     [MenuItem("Tools/ImageLevel/Step 2. Create Level GameObject From Sprite...")]
@@ -31,10 +38,12 @@ public class Editor_CreateLevel : ScriptableWizard {
             GenerateLevel(go);
 
             //Add the composite collider
-            staticsParent.AddComponent<Rigidbody2D>();
-            staticsParent.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
-            staticsParent.AddComponent<CompositeCollider2D>();
-
+            if (!DecorationMode)
+            {
+                staticsParent.AddComponent<Rigidbody2D>();
+                staticsParent.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+                staticsParent.AddComponent<CompositeCollider2D>();
+            }
             //mark as static GO's
             staticsParent.isStatic = true;
         }
@@ -107,12 +116,16 @@ public class Editor_CreateLevel : ScriptableWizard {
 
 
     void SetStaticsCollider(Transform myTile) {
-        Collider2D myCol = myTile.GetComponent<Collider2D>();
-        if (myCol == null) {
-            myTile.gameObject.AddComponent<BoxCollider2D>();
-            SetStaticsCollider(myTile);
+        if (!DecorationMode)
+        {
+            Collider2D myCol = myTile.GetComponent<Collider2D>();
+            if (myCol == null)
+            {
+                myTile.gameObject.AddComponent<BoxCollider2D>();
+                SetStaticsCollider(myTile);
+            }
+            myCol.usedByComposite = true;
         }
-        myCol.usedByComposite = true;
     }
 
 }
