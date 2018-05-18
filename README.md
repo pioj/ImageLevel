@@ -26,6 +26,8 @@ Just me.
 
 - Wizard creates a palette of Tiles*(color+prefab)* for every color found.
 - Wizard reads from a Sprite and generates the Tilemap level.
+- **NEW:** Wizard extracts shapes from CompositeCollider2D and creates several colliders.
+- **NEW:** Option toggle to ignore colliders generation. Useful for backgrounds or painting tiles.
 - Supports Multiple Sprites packed within an Atlas.
 - Allows to take special Tiles *(animated/Player/Dynamics)* apart from the common ones *(Statics)*.
 - Marks the desired tiles as *Static* GameObjects for latter optimization.
@@ -35,8 +37,6 @@ Just me.
 
 ### Planned features
 
-- Extra Tool : Extract the *CompositeCollider2D* point data and dump it into an empty GameObject.
-- A toggle option in the Wizard to allow collider generation or not, for just decoration.
 - 9-Slice like rules, to have nice borders according to your tilemap.
 - Combine Statics into a single GameObject *(dunno how, atm)*.
 
@@ -61,4 +61,4 @@ A 9-Slice feature would replace this last one...
 
 *(**NOTE**: All levels packed within an atlas SHOULD share same color for the same type of Tile)*
 
-*(**NOTE**: Also, you should provide your tiles with their own Collider already)*
+*(**NOTE**: Also, you should provide your tiles with their own Collider already, unless you want a background)*
