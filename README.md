@@ -1,6 +1,6 @@
 # ImageLevel
 
-Just a simple tool for generating tilemap-like 2D levels from a Texture2D/Sprite Image.
+Just a simple tool for generating tilemap-like 2D levels from a Texture2D/Sprite Image. It also works with 2.5D levels made with 3D prefabs.
 
 
 
@@ -24,9 +24,9 @@ Just me.
 
 ### Current Features
 
-- Wizard creates a palette of Tiles*(color+prefab)* for every color found.
-- Wizard reads from a Sprite and generates the Tilemap level.
-- **NEW:** Wizard extracts shapes from CompositeCollider2D and creates several colliders.
+- Wizard #1 creates a palette of Tiles*(color+prefab)* for every color found.
+- Wizard #2 reads from a Sprite and generates the Tilemap level.
+- Wizard #3 extracts shapes from CompositeCollider2D and creates several colliders.
 - **NEW:** Option toggle to ignore colliders generation. Useful for backgrounds or painting tiles.
 - Supports Multiple Sprites packed within an Atlas.
 - Allows to take special Tiles *(animated/Player/Dynamics)* apart from the common ones *(Statics)*.
@@ -38,7 +38,7 @@ Just me.
 ### Planned features
 
 - 9-Slice like rules, to have nice borders according to your tilemap.
-- Combine Statics into a single GameObject *(dunno how, atm)*.
+- Combine Statics into a single GameObject *(WIP, be patient, please)*.
 
 
 
@@ -48,16 +48,13 @@ You can adapt the whole thing to support 3D levels.
 
 You could also remove the empty-tile mask, in order to include background tiles, but I don't recommend my tool for this purpose. The ideal thing is to have as few GO's as possible...
 
-Convert to native Tilemap *(Unity2D)* structure, so you end with a single GameObject per level. I've removed this planned feature because it creates more garbage in your project. 
-
-A 9-Slice feature would replace this last one...
-
 
 
 ### Usage
 
 1. Use tool #1 for generating LevelPalettes from you Levels, stored as Texture2D.
 2. Use tool #2 to generate the Tilemap from a Sprite and a global LevelPalette.
+3. use tool #3 to break the default CompositeCollider into a few, simpler colliders.
 
 *(**NOTE**: All levels packed within an atlas SHOULD share same color for the same type of Tile)*
 
