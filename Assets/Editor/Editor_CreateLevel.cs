@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Runtime.InteropServices;
+using UnityEngine;
 using UnityEditor;
 
 namespace pioj.ImageLevel
@@ -13,9 +14,9 @@ namespace pioj.ImageLevel
         public Sprite Level;
         [Tooltip("Palette of colors & prefabs will be used for this level")]
         public SO_Color2Prefab LevelPalette;
-        [Tooltip("Remove all Collilders?")]
-        public bool DecorationMode = false;
-        [Tooltip("The color that will be ignored")]
+        [Tooltip("Remove all Colliders from non-excluded?")]
+        public bool DecorationMode;
+        [Tooltip("This color will be ignored")]
         public Color32 Empty = new Color32(255, 255, 255, 255); //white by default
 
         private GameObject staticsParent;
@@ -24,31 +25,30 @@ namespace pioj.ImageLevel
         static void CreateWizard()
         {
             ScriptableWizard.DisplayWizard<Editor_CreateLevel>("Create Level GameObject from Sprite", "Generate");
-
         }
 
         void OnWizardCreate()
         {
-            if (Level != null && LevelPalette != null)
-            {
-                if (LevelName == null || LevelName == "") LevelName = "NewLevel";
+            var checkmain = (Level != null && LevelPalette != null);
+            if (!checkmain) return;
 
-                GameObject go = new GameObject(LevelName);
-                staticsParent = new GameObject("Statics");
-                staticsParent.transform.SetParent(go.transform);
+            if (LevelName == null || LevelName == "") LevelName = "NewLevel";
 
-                GenerateLevel(go);
+            GameObject go = new GameObject(LevelName);
+            staticsParent = new GameObject("Statics");
+            staticsParent.transform.SetParent(go.transform);
 
-                //Add the composite collider
-                if (!DecorationMode)
-                {
-                    staticsParent.AddComponent<Rigidbody2D>();
-                    staticsParent.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
-                    staticsParent.AddComponent<CompositeCollider2D>();
-                }
-                //mark as static GO's
-                staticsParent.isStatic = true;
+            GenerateLevel(go);
+
+            //Add the composite collider
+            if (!DecorationMode) 
+            { 
+                staticsParent.AddComponent<Rigidbody2D>();
+                staticsParent.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+                staticsParent.AddComponent<CompositeCollider2D>(); 
             }
+            //mark Level root as static GO's
+            staticsParent.isStatic = true;
         }
 
         void OnWizardUpdate()
@@ -109,6 +109,7 @@ namespace pioj.ImageLevel
                     {
                         go.transform.SetParent(staticsParent.transform);
                         SetStaticsCollider(go.transform);
+                        CheckDecorationMode(go.transform);
                         go.isStatic = true;
                     }
                     else
@@ -132,7 +133,37 @@ namespace pioj.ImageLevel
                     myTile.gameObject.AddComponent<BoxCollider2D>();
                     SetStaticsCollider(myTile);
                 }
+
                 myCol.usedByComposite = true;
+            }
+        }
+
+        void CheckDecorationMode(Transform myTile)
+        {
+            if (!DecorationMode) return;
+            
+            var hasOtherCol = myTile.TryGetComponent(typeof(CircleCollider2D), out Component circleCol);
+            if (hasOtherCol) DestroyImmediate(circleCol);
+            hasOtherCol = false;
+            
+            hasOtherCol = myTile.TryGetComponent(typeof(BoxCollider2D), out Component boxCol);
+            if (hasOtherCol) DestroyImmediate(boxCol);
+            hasOtherCol = false; 
+            
+            hasOtherCol = myTile.TryGetComponent(typeof(PolygonCollider2D), out Component polyCol);
+            if (hasOtherCol) DestroyImmediate(polyCol);
+            hasOtherCol = false; 
+
+            hasOtherCol = myTile.TryGetComponent(typeof(EdgeCollider2D), out Component edgeCol);
+            if (hasOtherCol) DestroyImmediate(edgeCol);
+            hasOtherCol = false; 
+
+            var otherCols = myTile.GetComponentsInChildren<Collider2D>(true);
+            if (otherCols == null || otherCols.Length < 1) return;
+            
+            foreach (var colChild in otherCols)
+            {
+                DestroyImmediate(colChild);
             }
         }
 
