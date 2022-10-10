@@ -12,6 +12,14 @@ namespace pioj.ImageLevel
 
         public List<Color2Prefab> color2prefab = new List<Color2Prefab>();
 
+        [ContextMenu("Remove all excluded")]
+        void CleanExcluded()
+        {
+            if (color2prefab == null || color2prefab.Count < 1) return;
+
+            color2prefab.RemoveAll(go => go.excludeFromMerge == true);
+        }
+
         public void Clean()
         {
             if (color2prefab != null && color2prefab.Count > 1)
