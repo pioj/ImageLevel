@@ -19,7 +19,18 @@ namespace pioj.ImageLevel
         {
             serializedObject.Update();
 
-            //GUILayout.BeginVertical();
+            /* -FOR EXPERIMENTAL BRANCH ONLY-
+            EXPERIMENTAL_DrawNewInspector()
+            */ //-FOR EXPERIMENTAL BRANCH ONLY-
+            base.OnInspectorGUI();
+         
+            //EditorGUILayout.PropertyField(colors.GetArrayElementAtIndex(0).FindPropertyRelative("color"));
+            serializedObject.ApplyModifiedProperties();
+        }
+
+        
+        private void EXPERIMENTAL_DrawNewInspector()
+        {
             foreach (SerializedProperty item in colors)
             {
                 EditorGUILayout.BeginHorizontal();
@@ -34,17 +45,6 @@ namespace pioj.ImageLevel
                 EditorGUILayout.EndHorizontal();
                 EditorGUILayout.Separator();
             }
-            //GUILayout.EndVertical();
-            
-            /*seccion del boton para generar un ACT de Adobe
-            EditorGUILayout.Separator();
-            if (GUILayout.Button("Generate .ACT file from current Palette"))
-            {
-            }
-            */
-
-            //EditorGUILayout.PropertyField(colors.GetArrayElementAtIndex(0).FindPropertyRelative("color"));
-            serializedObject.ApplyModifiedProperties();
         }
     }
 }
