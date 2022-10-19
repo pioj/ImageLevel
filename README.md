@@ -25,6 +25,7 @@ Just me.
 ### Current Features
 
 - Wizard #1 creates a palette of Tiles*(color+prefab)* for every color found.
+- **NEW:** Support for Adobe Photoshop .ACT files. Can also export the extracted colors.
 - Wizard #2 reads from a Sprite and generates the Tilemap level.
 - Wizard #3 extracts shapes from CompositeCollider2D and creates several colliders.
 - **NEW:** Option toggle to ignore colliders generation. Useful for backgrounds or painting tiles.
@@ -38,6 +39,7 @@ Just me.
 ### Planned features
 
 - 9-Slice like rules, to have nice borders according to your tilemap.
+- More options for the palette ScriptableObject asset.
 - Combine Statics into a single GameObject *(WIP, be patient, please)*.
 
 
